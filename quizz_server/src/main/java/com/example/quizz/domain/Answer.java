@@ -5,22 +5,20 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Table(name = "choice")
+@Table(name = "answer")
 @Data
-public class Choice {
+public class Answer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
-    @Column(name = "content")
-    private String content;
-
-    @Column(name = "img")
-    private String url;
+    @OneToOne
+    @JoinColumn(name = "choice_id", nullable = false)
+    private Choice choice;
 
     @ManyToOne
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "question_id", nullable = false)
     @JsonIgnore
     private Question question;
 

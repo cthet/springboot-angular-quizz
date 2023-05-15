@@ -12,6 +12,7 @@ import java.util.List;
 public class Question {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name = "content")
@@ -28,12 +29,7 @@ public class Question {
     @OneToMany(mappedBy = "question")
     private List<Choice> choices;
 
-    @OneToOne
-    @JoinTable(name = "answer", joinColumns = {
-            @JoinColumn(name = "question_id", referencedColumnName = "id")
-    }, inverseJoinColumns = {
-            @JoinColumn(name = "choice_id", referencedColumnName = "id", nullable = false)
-    })
-    private Choice answer;
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers;
 
 }

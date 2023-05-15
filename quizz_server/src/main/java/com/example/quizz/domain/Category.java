@@ -13,12 +13,13 @@ import java.util.List;
 public class Category {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")
     private String name;
 
     @OneToMany(mappedBy = "category")
-    @JsonView(Views.CategorySummary.class)
+    @JsonView(Views.CategoryDetails.class)
     private List<Quiz> quizzes;
 }
