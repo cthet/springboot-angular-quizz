@@ -1,0 +1,75 @@
+<div class="quiz-container">
+
+  <div *ngIf="quiz$ | async as quiz">
+
+    <div class="quizz-block">
+      <h2>
+        <span>{{quiz.title}}</span>
+      </h2>         
+    </div>
+
+    <form [formGroup]="quizForm" (ngSubmit)="submitQuiz()">
+      <div formArrayName="questions">
+        <div *ngFor="let question of questions.controls; let i = index" [formGroupName]="i" class="question-block">
+
+          <div *ngIf="currentQuestionIndex == i">
+  
+            <h3>
+              <span>Question n°{{i + 1}}</span>
+            </h3>     
+            <div><pre [innerHTML]="question.get('content')?.value"></pre> </div> 
+
+              <div *ngIf="question.get('answers')?.value.length == 1">
+    
+                  <ul>
+                    <li *ngFor="let choice of question.get('choices')?.value">
+                      <input type="radio" [value]="choice.content" [id]="choice.id" formControlName="selectedChoices">
+                      <label [innerHTML]=[choice.content]></label>
+                    </li>         
+                  </ul>   
+ 
+    
+              </div>
+
+              <div *ngIf="question.get('answers')?.value.length > 1">
+
+                <ul>
+                  <li *ngFor="let choice of question.get('choices')?.value">
+                    <input type="checkbox" [value]="choice.content" [id]="choice.id" formControlName="selectedChoices">
+                    <label>{{ choice.content }}</label>
+                  </li>         
+                </ul>
+
+              </div>
+
+                <button type="submit" [disabled]="question.invalid">VALIDER</button>                         
+        
+          </div> 
+        </div>
+      </div>
+    </form>
+
+    <div *ngIf="isQuizCompleted">
+
+      <div>
+        <h3>You have {{correctAnswers}} correct Answers</h3>
+      </div>
+
+      <div *ngFor="let question of questions.controls; let i = index">
+
+        <div [ngStyle]="{'background-color': question.get('isCorrect')?.value? 'limegreen': 'salmon'}">
+          <h3>
+            <span>Question n°{{i + 1}}</span>
+          </h3>     
+          <p>Correct Answer: {{question.get('answers')?.value}}</p>
+          <span *ngIf="!question.get('isCorrect')?.value">Your answer: {{question.get('selectedChoices')?.value}}</span>
+
+        </div>
+ 
+
+      </div>
+
+    </div>
+ 
+  </div>
+</div>

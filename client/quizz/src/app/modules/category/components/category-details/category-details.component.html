@@ -1,0 +1,17 @@
+<div class="category-container">
+
+  <div *ngIf="category$ | async as category" class="category-block">
+    <h2>
+      <span>{{category.name}}</span>
+    </h2>     
+  </div>
+
+  <div *ngFor="let quiz of (category$ | async)?.quizzes">
+    <a [routerLink]="'../quiz/' + quiz.id">
+      <div class="quiz-block">
+          <span>{{quiz.title}}</span>
+      </div>
+    </a>
+  </div>     
+
+</div>

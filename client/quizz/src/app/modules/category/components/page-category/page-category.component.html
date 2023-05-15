@@ -1,0 +1,15 @@
+<h2>Select a category</h2>
+
+<div class="global-container">
+
+  <div *ngFor="let category of categories$ | async">
+
+    <a [routerLink]="['/category', category.id]">
+      <div class="category-block">
+          <span>{{category.name}}</span>
+      </div>
+    </a>
+  
+  </div>
+
+</div>
