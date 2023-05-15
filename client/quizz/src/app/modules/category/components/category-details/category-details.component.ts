@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, map, of, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Category } from 'src/app/interface/category';
 import { CategoryService } from '../../services/category.service';
 import { ActivatedRoute } from '@angular/router';
-import { Quiz } from 'src/app/interface/quiz';
 
 @Component({
   selector: 'app-category-details',

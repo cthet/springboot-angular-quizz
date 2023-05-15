@@ -24,7 +24,7 @@ public class CategoryController {
     @JsonView(Views.CategorySummary.class)
     public ResponseEntity<?> getCategoriesSummary() {
         try{
-            List<Category> categories = repository.categoryValidation(repository.findAll());
+            List<Category> categories = repository.findAll();
             return new ResponseEntity<>(categories, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);

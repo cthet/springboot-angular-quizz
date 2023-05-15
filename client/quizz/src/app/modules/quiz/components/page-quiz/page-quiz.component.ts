@@ -49,18 +49,14 @@ export class PageQuizComponent implements OnInit {
   }
 
   createQuestion(question: Question): FormGroup {
-    //const choicesArray = this.createChoices(question);
     let answers = question.answers.map(answer => answer.choice.content);
-    console.log(question.choices);
     return this.formBuilder.group({
       content: question.content,
       choices: [question.choices],
       selectedChoices: [[], Validators.required],
       answers: [answers],
       isCorrect: false
-    });
-
-  
+    });  
         
   }
 

@@ -23,8 +23,13 @@
     
                   <ul>
                     <li *ngFor="let choice of question.get('choices')?.value">
+                      
+                      
                       <input type="radio" [value]="choice.content" [id]="choice.id" formControlName="selectedChoices">
-                      <label [innerHTML]=[choice.content]></label>
+                      <label for="choice.content">{{choice.content}}</label>
+                        
+                      
+
                     </li>         
                   </ul>   
  
@@ -35,8 +40,9 @@
 
                 <ul>
                   <li *ngFor="let choice of question.get('choices')?.value">
-                    <input type="checkbox" [value]="choice.content" [id]="choice.id" formControlName="selectedChoices">
-                    <label>{{ choice.content }}</label>
+                    
+                    <input type="checkbox" [value]="choice.content" [id]="choice.id" formControlName="selectedChoices">   
+                    <label for="choice.content">{{choice.content}}</label>               
                   </li>         
                 </ul>
 
