@@ -2,7 +2,7 @@
 
   <div *ngIf="quiz$ | async as quiz">
 
-    <div class="quizz-block">
+    <div class="quizz-title">
       <h2>
         <span>{{quiz.title}}</span>
       </h2>         
@@ -14,25 +14,27 @@
 
           <div *ngIf="currentQuestionIndex == i">
   
-            <h3>
-              <span>Question n°{{i + 1}}</span>
-            </h3>     
-            <div><pre [innerHTML]="question.get('content')?.value"></pre> </div> 
+            <div class="quizz-question">
+              <h3>
+                <span>Question n°{{i + 1}}</span>
+              </h3>     
+  
+              <pre [innerHTML]="question.get('content')?.value" class="pre-formatted-text"></pre> 
+
+            </div>
 
               <div *ngIf="question.get('answers')?.value.length == 1">
     
                   <ul>
                     <li *ngFor="let choice of question.get('choices')?.value">
                       
-                      
+                      <label for="choice.content">
                       <input type="radio" [value]="choice.content" [id]="choice.id" formControlName="selectedChoices">
-                      <label for="choice.content">{{choice.content}}</label>
-                        
-                      
+                      {{choice.content}}
+                      </label>                                             
 
                     </li>         
-                  </ul>   
- 
+                  </ul>    
     
               </div>
 
@@ -41,14 +43,16 @@
                 <ul>
                   <li *ngFor="let choice of question.get('choices')?.value">
                     
-                    <input type="checkbox" [value]="choice.content" [id]="choice.id" formControlName="selectedChoices">   
-                    <label for="choice.content">{{choice.content}}</label>               
+                    <label for="choice.content">
+                    <input type="checkbox" [value]="choice.content" [id]="choice.id" formControlName="selectedChoices"/>   
+                    {{choice.content}}
+                    </label>               
                   </li>         
                 </ul>
 
               </div>
 
-                <button type="submit" [disabled]="question.invalid">VALIDER</button>                         
+                <button type="submit" [disabled]="question.invalid" class="submit-btn">VALIDER</button>                         
         
           </div> 
         </div>
@@ -57,20 +61,26 @@
 
     <div *ngIf="isQuizCompleted">
 
-      <div>
+      <div class="quizz-result">
         <h3>You have {{correctAnswers}} correct Answers</h3>
       </div>
-
+      
       <div *ngFor="let question of questions.controls; let i = index">
+        
 
-        <div [ngStyle]="{'background-color': question.get('isCorrect')?.value? 'limegreen': 'salmon'}">
+        <div [ngStyle]="{'background-color': question.get('isCorrect')?.value? 'limegreen': 'salmon'}" class="question-answer">
           <h3>
             <span>Question n°{{i + 1}}</span>
           </h3>     
-          <p>Correct Answer: {{question.get('answers')?.value}}</p>
-          <span *ngIf="!question.get('isCorrect')?.value">Your answer: {{question.get('selectedChoices')?.value}}</span>
+          <pre [innerHTML]="question.get('content')?.value" class="pre-formatted-text"></pre>
 
-        </div>
+          <h4>Correct Answer:</h4>
+          <p>{{question.get('answers')?.value}}</p>
+          
+          <div *ngIf="!question.get('isCorrect')?.value">
+            <h4>Your answer:</h4>
+            <p>{{question.get('selectedChoices')?.value}}</p>
+          </div>
  
 
       </div>
